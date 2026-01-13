@@ -5,11 +5,10 @@
   <title>AirClient</title>
 
   <style>
-    /* ===== 基本 ===== */
     html, body {
       margin: 0;
       padding: 0;
-      height: 220vh; /* スクロール量 */
+      height: 220vh;
       font-family: "Segoe UI", sans-serif;
     }
 
@@ -23,7 +22,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== AirClient タイトル ===== */
+    /* ===== タイトル ===== */
     .title {
       position: fixed;
       top: 50%;
@@ -53,7 +52,7 @@
       color: rgba(255,255,255,0.7);
       opacity: 0;
       pointer-events: none;
-      transition: all 0.6s ease;
+      transition: all 0.5s ease;
       z-index: 9;
       text-decoration: none;
     }
@@ -69,13 +68,13 @@
       text-shadow: 0 0 14px rgba(255,255,255,0.6);
     }
 
-    /* ===== 通常の Download セクション ===== */
+    /* ===== 通常位置の Download ===== */
     .download-section {
-      margin-top: 120vh;
+      margin-top: 90vh; /* ← すぐ見える位置 */
       text-align: center;
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
+      transform: translateY(20px);
+      transition: all 0.6s ease;
     }
 
     .download-section.show {
@@ -88,7 +87,6 @@
       letter-spacing: 2px;
       color: rgba(255,255,255,0.65);
       text-decoration: none;
-      transition: all 0.3s ease;
     }
 
     .download-section a:hover {
@@ -102,12 +100,12 @@
   <!-- タイトル -->
   <div class="title" id="title">AirClient</div>
 
-  <!-- 中央に一瞬出る Download -->
+  <!-- 中央に一瞬出る -->
   <a href="download.html" id="downloadCenter" class="download-center">
     Download AirClient
   </a>
 
-  <!-- 通常位置の Download -->
+  <!-- 通常位置 -->
   <div class="download-section" id="downloadSection">
     <a href="download.html">Download AirClient</a>
   </div>
@@ -121,19 +119,24 @@
       const section = document.getElementById("downloadSection");
 
       /* タイトル移動 */
-      if (window.scrollY > 40) {
+      if (window.scrollY > 10) {
         title.classList.add("scrolled");
       } else {
         title.classList.remove("scrolled");
       }
 
-      /* 最初のスクロールで中央表示（glideclient風） */
+      /* 最初のスクロールで即中央表示 */
       if (!firstScroll && window.scrollY > 0) {
         center.classList.add("show");
         firstScroll = true;
 
-      /* 通常の Download を表示 */
-      if (window.scrollY > window.innerHeight * 0.6) {
+        setTimeout(() => {
+          center.classList.remove("show");
+        }, 1000);
+      }
+
+      /* 少しスクロールしたら通常Download表示 */
+      if (window.scrollY > 150) {
         section.classList.add("show");
       }
     });
