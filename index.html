@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>AirClient</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    /* ===== 基本 ===== */
     html, body {
       margin: 0;
       padding: 0;
       height: 220vh;
-      font-family: "Segoe UI", sans-serif;
+      font-family: "Segoe UI", system-ui, sans-serif;
     }
 
     body {
@@ -22,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== タイトル ===== */
+    /* ===== AirClient タイトル ===== */
     .title {
       position: fixed;
       top: 50%;
@@ -30,7 +32,7 @@
       transform: translate(-50%, -50%);
       font-size: 72px;
       letter-spacing: 4px;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.35);
+      text-shadow: 0 4px 14px rgba(0,0,0,0.35);
       transition: all 0.6s ease;
       z-index: 10;
     }
@@ -41,36 +43,36 @@
       transform: translateX(-50%);
     }
 
-    /* ===== 中央に一瞬出る Download ===== */
-    .download-center {
+    /* ===== 中央に一瞬出る CTA ===== */
+    .cta-center {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) scale(0.95);
+      transform: translate(-50%, -50%) scale(0.96);
       font-size: 42px;
       letter-spacing: 2px;
       color: rgba(255,255,255,0.7);
       opacity: 0;
       pointer-events: none;
+      text-decoration: none;
       transition: all 0.5s ease;
       z-index: 9;
-      text-decoration: none;
     }
 
-    .download-center.show {
+    .cta-center.show {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1);
       pointer-events: auto;
     }
 
-    .download-center:hover {
+    .cta-center:hover {
       color: white;
-      text-shadow: 0 0 14px rgba(255,255,255,0.6);
+      text-shadow: 0 0 16px rgba(255,255,255,0.6);
     }
 
     /* ===== 通常位置の Download ===== */
     .download-section {
-      margin-top: 90vh; /* ← すぐ見える位置 */
+      margin-top: 90vh;
       text-align: center;
       opacity: 0;
       transform: translateY(20px);
@@ -87,11 +89,19 @@
       letter-spacing: 2px;
       color: rgba(255,255,255,0.65);
       text-decoration: none;
+      transition: all 0.3s ease;
     }
 
     .download-section a:hover {
       color: white;
       text-shadow: 0 0 12px rgba(255,255,255,0.6);
+    }
+
+    /* ===== ダミー下部 ===== */
+    .spacer {
+      margin-top: 60vh;
+      text-align: center;
+      opacity: 0.8;
     }
   </style>
 </head>
@@ -100,42 +110,46 @@
   <!-- タイトル -->
   <div class="title" id="title">AirClient</div>
 
-  <!-- 中央に一瞬出る -->
-  <a href="download.html" id="downloadCenter" class="download-center">
+  <!-- 中央に一瞬出る Download -->
+  <a href="download.html" class="cta-center" id="ctaCenter">
     Download AirClient
   </a>
 
-  <!-- 通常位置 -->
+  <!-- 通常の Download -->
   <div class="download-section" id="downloadSection">
     <a href="download.html">Download AirClient</a>
   </div>
 
+  <div class="spacer">
+    <p>Fast. Clean. Powerful.</p>
+  </div>
+
   <script>
-    let firstScroll = false;
+    let firstScrollTriggered = false;
 
     window.addEventListener("scroll", () => {
       const title = document.getElementById("title");
-      const center = document.getElementById("downloadCenter");
+      const cta = document.getElementById("ctaCenter");
       const section = document.getElementById("downloadSection");
 
-      /* タイトル移動 */
+      /* タイトルを上へ */
       if (window.scrollY > 10) {
         title.classList.add("scrolled");
       } else {
         title.classList.remove("scrolled");
       }
 
-      /* 最初のスクロールで即中央表示 */
-      if (!firstScroll && window.scrollY > 0) {
-        center.classList.add("show");
-        firstScroll = true;
+      /* 最初のスクロールだけ中央CTA表示 */
+      if (!firstScrollTriggered && window.scrollY > 0) {
+        cta.classList.add("show");
+        firstScrollTriggered = true;
 
         setTimeout(() => {
-          center.classList.remove("show");
+          cta.classList.remove("show");
         }, 1000);
       }
 
-      /* 少しスクロールしたら通常Download表示 */
+      /* 通常Downloadを表示 */
       if (window.scrollY > 150) {
         section.classList.add("show");
       }
