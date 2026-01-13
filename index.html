@@ -124,14 +124,7 @@ window.addEventListener("scroll", () => {
   if (!hasScrolled && window.scrollY > 0) {
     document.getElementById("downloadCenter").classList.add("show");
     hasScrolled = true;
-
-    // 一定時間後に消したい場合（任意）
-    setTimeout(() => {
-      document.getElementById("downloadCenter").classList.remove("show");
-    }, 1500);
-  }
-});
-
+    
   </script>
 
 </body>
