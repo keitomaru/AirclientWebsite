@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <title>AirClient</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    /* ===== 基本 ===== */
     html, body {
       margin: 0;
       padding: 0;
-      height: 220vh;
-      font-family: "Segoe UI", system-ui, sans-serif;
+      height: 200vh;
+      font-family: "Segoe UI", sans-serif;
     }
 
     body {
@@ -24,7 +23,7 @@
       overflow-x: hidden;
     }
 
-    /* ===== AirClient タイトル ===== */
+    /* タイトル */
     .title {
       position: fixed;
       top: 50%;
@@ -32,9 +31,8 @@
       transform: translate(-50%, -50%);
       font-size: 72px;
       letter-spacing: 4px;
-      text-shadow: 0 4px 14px rgba(0,0,0,0.35);
       transition: all 0.6s ease;
-      z-index: 10;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.35);
     }
 
     .title.scrolled {
@@ -43,115 +41,53 @@
       transform: translateX(-50%);
     }
 
-    /* ===== 中央に一瞬出る CTA ===== */
-    .cta-center {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.96);
-      font-size: 42px;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,0.7);
-      opacity: 0;
-      pointer-events: none;
-      text-decoration: none;
-      transition: all 0.5s ease;
-      z-index: 9;
-    }
-
-    .cta-center.show {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-      pointer-events: auto;
-    }
-
-    .cta-center:hover {
-      color: white;
-      text-shadow: 0 0 16px rgba(255,255,255,0.6);
-    }
-
-    /* ===== 通常位置の Download ===== */
-    .download-section {
+    /* Download（普通） */
+    .download {
       margin-top: 90vh;
       text-align: center;
       opacity: 0;
       transform: translateY(20px);
-      transition: all 0.6s ease;
+      transition: all 0.5s ease;
     }
 
-    .download-section.show {
+    .download.show {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .download-section a {
+    .download a {
       font-size: 36px;
-      letter-spacing: 2px;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255,255,255,0.7);
       text-decoration: none;
-      transition: all 0.3s ease;
     }
 
-    .download-section a:hover {
+    .download a:hover {
       color: white;
       text-shadow: 0 0 12px rgba(255,255,255,0.6);
-    }
-
-    /* ===== ダミー下部 ===== */
-    .spacer {
-      margin-top: 60vh;
-      text-align: center;
-      opacity: 0.8;
     }
   </style>
 </head>
 <body>
 
-  <!-- タイトル -->
   <div class="title" id="title">AirClient</div>
 
-  <!-- 中央に一瞬出る Download -->
-  <a href="download.html" class="cta-center" id="ctaCenter">
-    Download AirClient
-  </a>
-
-  <!-- 通常の Download -->
-  <div class="download-section" id="downloadSection">
+  <div class="download" id="download">
     <a href="download.html">Download AirClient</a>
   </div>
 
-  <div class="spacer">
-    <p>Fast. Clean. Powerful.</p>
-  </div>
-
   <script>
-    let firstScrollTriggered = false;
+    const title = document.getElementById("title");
+    const download = document.getElementById("download");
 
     window.addEventListener("scroll", () => {
-      const title = document.getElementById("title");
-      const cta = document.getElementById("ctaCenter");
-      const section = document.getElementById("downloadSection");
-
-      /* タイトルを上へ */
       if (window.scrollY > 10) {
         title.classList.add("scrolled");
       } else {
         title.classList.remove("scrolled");
       }
 
-      /* 最初のスクロールだけ中央CTA表示 */
-      if (!firstScrollTriggered && window.scrollY > 0) {
-        cta.classList.add("show");
-        firstScrollTriggered = true;
-
-        setTimeout(() => {
-          cta.classList.remove("show");
-        }, 1000);
-      }
-
-      /* 通常Downloadを表示 */
-      if (window.scrollY > 150) {
-        section.classList.add("show");
+      if (window.scrollY > 100) {
+        download.classList.add("show");
       }
     });
   </script>
