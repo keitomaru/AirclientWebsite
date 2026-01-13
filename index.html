@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <a href="download.html" id="downloadCenter" class="download-center">
-  Download AirClient
-</a>
-
 <head>
   <meta charset="UTF-8">
   <title>AirClient</title>
 
   <style>
+    /* ===== 基本 ===== */
     html, body {
       margin: 0;
       padding: 0;
-      height: 200vh; /* スクロール用 */
+      height: 220vh; /* スクロール量 */
       font-family: "Segoe UI", sans-serif;
     }
 
@@ -45,7 +42,34 @@
       transform: translateX(-50%);
     }
 
-    /* ===== Download セクション ===== */
+    /* ===== 中央に一瞬出る Download ===== */
+    .download-center {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.95);
+      font-size: 42px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.7);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.6s ease;
+      z-index: 9;
+      text-decoration: none;
+    }
+
+    .download-center.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+      pointer-events: auto;
+    }
+
+    .download-center:hover {
+      color: white;
+      text-shadow: 0 0 14px rgba(255,255,255,0.6);
+    }
+
+    /* ===== 通常の Download セクション ===== */
     .download-section {
       margin-top: 120vh;
       text-align: center;
@@ -62,7 +86,7 @@
     .download-section a {
       font-size: 36px;
       letter-spacing: 2px;
-      color: rgba(255, 255, 255, 0.65);
+      color: rgba(255,255,255,0.65);
       text-decoration: none;
       transition: all 0.3s ease;
     }
@@ -71,26 +95,6 @@
       color: white;
       text-shadow: 0 0 12px rgba(255,255,255,0.6);
     }
-    .download-center {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.95);
-  font-size: 42px;
-  letter-spacing: 2px;
-  color: rgba(255,255,255,0.7);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.6s ease;
-  z-index: 9;
-}
-
-.download-center.show {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-  pointer-events: auto;
-}
-
   </style>
 </head>
 <body>
@@ -98,33 +102,41 @@
   <!-- タイトル -->
   <div class="title" id="title">AirClient</div>
 
-  <!-- Download（普通の位置） -->
+  <!-- 中央に一瞬出る Download -->
+  <a href="download.html" id="downloadCenter" class="download-center">
+    Download AirClient
+  </a>
+
+  <!-- 通常位置の Download -->
   <div class="download-section" id="downloadSection">
     <a href="download.html">Download AirClient</a>
   </div>
 
   <script>
+    let firstScroll = false;
+
     window.addEventListener("scroll", () => {
       const title = document.getElementById("title");
-      const download = document.getElementById("downloadSection");
+      const center = document.getElementById("downloadCenter");
+      const section = document.getElementById("downloadSection");
 
-      if (window.scrollY > 60) {
+      /* タイトル移動 */
+      if (window.scrollY > 40) {
         title.classList.add("scrolled");
       } else {
         title.classList.remove("scrolled");
       }
 
+      /* 最初のスクロールで中央表示（glideclient風） */
+      if (!firstScroll && window.scrollY > 0) {
+        center.classList.add("show");
+        firstScroll = true;
+
+      /* 通常の Download を表示 */
       if (window.scrollY > window.innerHeight * 0.6) {
-        download.classList.add("show");
+        section.classList.add("show");
       }
     });
-    let hasScrolled = false;
-
-window.addEventListener("scroll", () => {
-  if (!hasScrolled && window.scrollY > 0) {
-    document.getElementById("downloadCenter").classList.add("show");
-    hasScrolled = true;
-    
   </script>
 
 </body>
