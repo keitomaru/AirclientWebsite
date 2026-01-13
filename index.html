@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <a href="download.html" id="downloadCenter" class="download-center">
+  Download AirClient
+</a>
+
 <head>
   <meta charset="UTF-8">
   <title>AirClient</title>
@@ -67,6 +71,26 @@
       color: white;
       text-shadow: 0 0 12px rgba(255,255,255,0.6);
     }
+    .download-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  font-size: 42px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.6s ease;
+  z-index: 9;
+}
+
+.download-center.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
   </style>
 </head>
 <body>
@@ -94,6 +118,20 @@
         download.classList.add("show");
       }
     });
+    let hasScrolled = false;
+
+window.addEventListener("scroll", () => {
+  if (!hasScrolled && window.scrollY > 0) {
+    document.getElementById("downloadCenter").classList.add("show");
+    hasScrolled = true;
+
+    // 一定時間後に消したい場合（任意）
+    setTimeout(() => {
+      document.getElementById("downloadCenter").classList.remove("show");
+    }, 1500);
+  }
+});
+
   </script>
 
 </body>
