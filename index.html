@@ -6,8 +6,9 @@
   <style>
     html, body {
       margin: 0;
-      width: 100%;
-      height: 100%;
+      padding: 0;
+      height: 200vh; /* スクロール用 */
+      font-family: "Segoe UI", sans-serif;
     }
 
     body {
@@ -16,21 +17,62 @@
         rgb(255, 183, 94),
         rgb(255, 94, 98)
       );
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: "Segoe UI", sans-serif;
-      color: white;
+      overflow-x: hidden;
     }
 
-    h1 {
-      font-size: 64px;
+    /* AirClient文字 */
+    .title {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 72px;
       letter-spacing: 4px;
-      text-shadow: 0 4px 10px rgba(0,0,0,0.35);
+      color: white;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.35);
+      transition:
+        top 0.6s ease,
+        transform 0.6s ease,
+        font-size 0.6s ease;
+      z-index: 10;
+    }
+
+    /* スクロール後の状態 */
+    .title.scrolled {
+      top: 40px;
+      transform: translateX(-50%);
+      font-size: 40px;
+    }
+
+    /* 下のダミーコンテンツ */
+    .content {
+      margin-top: 120vh;
+      text-align: center;
+      color: white;
+      font-size: 20px;
+      opacity: 0.9;
     }
   </style>
 </head>
 <body>
-  <h1>AirClient</h1>
+
+  <div class="title" id="title">AirClient</div>
+
+  <div class="content">
+    <p>Fast. Clean. Powerful.</p>
+    <p>AirClient Official Website</p>
+  </div>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      const title = document.getElementById("title");
+      if (window.scrollY > 50) {
+        title.classList.add("scrolled");
+      } else {
+        title.classList.remove("scrolled");
+      }
+    });
+  </script>
+
 </body>
 </html>
