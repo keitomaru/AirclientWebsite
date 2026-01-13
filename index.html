@@ -18,8 +18,8 @@
         rgb(255, 183, 94),
         rgb(255, 94, 98)
       );
-      overflow-x: hidden;
       color: white;
+      overflow-x: hidden;
     }
 
     /* ===== AirClient タイトル ===== */
@@ -41,39 +41,31 @@
       transform: translateX(-50%);
     }
 
-    /* ===== Download 表示 ===== */
-    .download {
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translate(-50%, 30px);
+    /* ===== Download セクション ===== */
+    .download-section {
+      margin-top: 120vh;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .download-section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .download-section a {
       font-size: 36px;
       letter-spacing: 2px;
-      opacity: 0;
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.65);
       text-decoration: none;
-      transition: all 0.6s ease;
-      pointer-events: none;
+      transition: all 0.3s ease;
     }
 
-    .download.show {
-      opacity: 1;
-      transform: translate(-50%, 0);
-      pointer-events: auto;
-    }
-
-    .download:hover {
-      opacity: 1;
+    .download-section a:hover {
       color: white;
       text-shadow: 0 0 12px rgba(255,255,255,0.6);
-    }
-
-    /* 下のダミー */
-    .content {
-      margin-top: 130vh;
-      text-align: center;
-      font-size: 18px;
-      opacity: 0.85;
     }
   </style>
 </head>
@@ -82,26 +74,24 @@
   <!-- タイトル -->
   <div class="title" id="title">AirClient</div>
 
-  <!-- Download -->
-  <a href="download.html" class="download" id="download">
-    Download AirClient
-  </a>
-
-  <div class="content">
-    <p>Scroll down</p>
+  <!-- Download（普通の位置） -->
+  <div class="download-section" id="downloadSection">
+    <a href="download.html">Download AirClient</a>
   </div>
 
   <script>
     window.addEventListener("scroll", () => {
       const title = document.getElementById("title");
-      const download = document.getElementById("download");
+      const download = document.getElementById("downloadSection");
 
       if (window.scrollY > 60) {
         title.classList.add("scrolled");
-        download.classList.add("show");
       } else {
         title.classList.remove("scrolled");
-        download.classList.remove("show");
+      }
+
+      if (window.scrollY > window.innerHeight * 0.6) {
+        download.classList.add("show");
       }
     });
   </script>
