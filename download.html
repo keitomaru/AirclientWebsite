@@ -4,19 +4,14 @@
   <meta charset="UTF-8" />
   <title>Download | AirClient</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Meta -->
   <meta name="description" content="Download AirClient – a modern Minecraft 1.8.9 PvP client." />
   <meta name="theme-color" content="#ff6a5c" />
 
-  <!-- Favicon -->
+  <!-- favicon -->
   <link rel="icon" href="assets/icon.ico">
 
-
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
@@ -27,22 +22,15 @@
     }
 
     body {
-      background: radial-gradient(
-          at top left,
-          rgba(255, 255, 255, 0.25),
-          transparent 60%
-        ),
-        linear-gradient(
-          135deg,
-          rgb(255, 183, 94),
-          rgb(255, 94, 98)
-        );
+      background:
+        radial-gradient(at top left, rgba(255,255,255,0.25), transparent 60%),
+        linear-gradient(135deg, rgb(255,183,94), rgb(255,94,98));
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* ===== NAVBAR ===== */
+    /* ===== HEADER (同一) ===== */
     header {
       position: fixed;
       top: 20px;
@@ -51,29 +39,56 @@
       width: calc(100% - 80px);
       max-width: 1200px;
       backdrop-filter: blur(14px);
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255,255,255,0.12);
       border-radius: 18px;
       padding: 14px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      z-index: 10;
     }
 
-    .logo {
+    .logo-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      width: 28px;
+      height: 28px;
+      margin-right: 10px;
+    }
+
+    .logo-text {
       font-weight: 600;
       letter-spacing: 1px;
+      color: white;
     }
 
     nav a {
       color: white;
       text-decoration: none;
       margin-left: 24px;
-      opacity: 0.85;
       font-size: 14px;
+      opacity: 0.75;
+      position: relative;
     }
 
+    nav a.active,
     nav a:hover {
       opacity: 1;
+    }
+
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
     }
 
     /* ===== CONTENT ===== */
@@ -91,12 +106,6 @@
       text-shadow: 0 8px 24px rgba(0,0,0,0.35);
     }
 
-    p {
-      opacity: 0.85;
-      margin-bottom: 40px;
-    }
-
-    /* ===== DOWNLOAD CARD ===== */
     .card {
       background: rgba(255,255,255,0.15);
       backdrop-filter: blur(20px);
@@ -131,12 +140,6 @@
       box-shadow: 0 12px 28px rgba(0,0,0,0.25);
     }
 
-    .info {
-      margin-top: 18px;
-      font-size: 13px;
-      opacity: 0.7;
-    }
-
     footer {
       margin-top: auto;
       padding: 24px;
@@ -148,40 +151,39 @@
 
 <body>
 
-  <!-- NAV -->
-  <header>
-    <div class="logo">AirClient</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="#">Features</a>
-      <a href="#">About</a>
-      <a href="#">Discord</a>
-    </nav>
-  </header>
+<header>
+  <a href="index.html" class="logo-link">
+    <img src="assets/icon.ico" alt="AirClient" class="logo-img">
+    <span class="logo-text">AirClient</span>
+  </a>
 
-  <!-- MAIN -->
-  <main>
-    <h1>Download AirClient</h1>
-    <p>The clean and modern Minecraft 1.8.9 PvP client</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="download.html" class="active">Download</a>
+  </nav>
+</header>
 
-    <div class="card">
-      <h2>Latest Release</h2>
-      <p>AirClient for Minecraft 1.8.9</p>
+<main>
+  <h1>Download AirClient</h1>
 
-      <a href="#" class="download-btn">
-        <img src="assets/download.svg" alt="Download">
-        Download for Windows
-      </a>
+  <div class="card">
+    <h2>Latest Release</h2>
+    <p>For Minecraft 1.8.9</p>
 
-      <div class="info">
-        Requires Java 8 · Minecraft 1.8.9
-      </div>
-    </div>
-  </main>
+    <a href="#" class="download-btn">
+      <img src="assets/download.svg" alt="Download">
+      Download for Windows
+    </a>
 
-  <footer>
-    © AirClient
-  </footer>
+    <p style="opacity:.7;font-size:13px;margin-top:16px;">
+      Requires Java 8 · Minecraft 1.8.9
+    </p>
+  </div>
+</main>
+
+<footer>
+  © AirClient
+</footer>
 
 </body>
 </html>
